@@ -1,11 +1,10 @@
-﻿using Sitecore.ExperienceForms.Mvc.Models.Validation;
+﻿using Sitecore.ExperienceForms.Mvc.Models.Fields;
+using Sitecore.ExperienceForms.Mvc.Models.Validation;
 using Sitecore.ExperienceForms.Mvc.Models.Validation.Parameters;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
+using System.Web.Mvc;
 
 namespace Sitecore.Support.ExperienceForms.Mvc.Models.Validation
 {
@@ -29,7 +28,7 @@ namespace Sitecore.Support.ExperienceForms.Mvc.Models.Validation
           yield break;
         }
 
-        var regex = new Regex(RegularExpression, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.Compiled);
+        var regex = new Regex(RegularExpression, RegexOptions.ExplicitCapture | RegexOptions.Compiled);
 
         yield return new ModelClientValidationRegexRule(FormatMessage(Title), regex.ToString());
       }
@@ -55,7 +54,7 @@ namespace Sitecore.Support.ExperienceForms.Mvc.Models.Validation
         return ValidationResult.Success;
       }
 
-      var regex = new Regex(RegularExpression, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.Compiled);
+      var regex = new Regex(RegularExpression, RegexOptions.ExplicitCapture | RegexOptions.Compiled);
 
       var stringValue = (string)value;
       if (string.IsNullOrEmpty(stringValue) || regex.IsMatch(stringValue))
